@@ -1,9 +1,21 @@
 import { StyleSheet, Text, View } from "react-native";
+import { useLocalSearchParams } from "expo-router";
+import DetailsSection from "@/features/detailsView/DetailsSection";
+import { useCharacterById } from "@/hooks/useCharacterById";
 
 export default function Details() {
+  const { id } = useLocalSearchParams();
+  const num = Number(id);
+  const character = useCharacterById(num);
+
+  if (character.status === "loading") return <Text>Loading...</Text>;
+  if (character.status === "error")
+    return <Text>{character.error.message}</Text>;
+
   return (
     <View style={styles.container}>
-      <Text>Hej från details!</Text>
+      <Text>{character.data.name}</Text>
+      <DetailsSection />
     </View>
   );
 }
