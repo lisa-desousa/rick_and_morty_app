@@ -1,10 +1,10 @@
 import { ScrollView, StyleSheet } from "react-native";
-import { Character } from "@/types/CharacterType";
+import { SimpleCharacter } from "@/types/SimpleCharacterType";
 import Card from "./Card";
 
 type GridProps = {
-  characters: Character[];
-  onCardPress?: (char: Character) => void;
+  characters: SimpleCharacter[];
+  onCardPress?: (char: SimpleCharacter) => void;
 };
 
 export default function Grid({ characters, onCardPress }: GridProps) {

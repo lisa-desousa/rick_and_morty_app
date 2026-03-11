@@ -3,6 +3,18 @@ import Grid from "@/features/listView/Grid";
 import { useRouter } from "expo-router";
 import { useAllCharacters } from "@/hooks/useAllCharacters";
 
+//prio:
+//pagination
+//status bar fix
+//sökfunktion
+//generera random karaktär?
+//favoriter (tabs för flöde + favoriter?)
+
+//... vi får se om det blir mer
+//mappa ut episoder som karaktärer är med i i detailssection
+//liknande flöden för locations och episodes
+//kunna länka mellan details-sidor
+
 export default function App() {
   const router = useRouter();
   const characters = useAllCharacters();

@@ -5,7 +5,7 @@ import { useCharacterById } from "@/hooks/useCharacterById";
 
 export default function Details() {
   const { id } = useLocalSearchParams();
-  const num = Number(id);
+  const num = Number(id); //verifiera på nåt sett att detta inte är NaN ?
   const character = useCharacterById(num);
 
   if (character.status === "loading") return <Text>Loading...</Text>;
@@ -14,8 +14,7 @@ export default function Details() {
 
   return (
     <View style={styles.container}>
-      <Text>{character.data.name}</Text>
-      <DetailsSection />
+      <DetailsSection item={character.data} />
     </View>
   );
 }
@@ -25,6 +24,5 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#c6ff53",
     alignItems: "center",
-    justifyContent: "center",
   },
 });

@@ -1,8 +1,8 @@
 import { Image, Pressable, StyleSheet, Text } from "react-native";
-import { Character } from "@/types/CharacterType";
+import { SimpleCharacter } from "@/types/SimpleCharacterType";
 
 type CardProps = {
-  character: Character;
+  character: SimpleCharacter;
   onPress?: () => void; //kortet är klickbart i sig, men vad som sker vid klick bestäms utifrån var kortet används. Grid skickar den specifika logiken (i detta fall navigation) som props till index
 };
 

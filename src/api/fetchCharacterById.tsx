@@ -1,13 +1,12 @@
 import { Character } from "@/types/CharacterType";
 
 export async function fetchCharacterById(id: number) {
-  try {
-    const res = await fetch(`https://rickandmortyapi.com/api/character/${id}`);
-    const data = await res.json();
-    console.log("Success: ", data);
-    return data as Character;
-  } catch (error) {
-    console.log("Failed: ", error);
-    throw new Error("Failed to fetch character by ID");
+  const res = await fetch(`https://rickandmortyapi.com/api/character/${id}`);
+
+  if (!res.ok) {
+    throw new Error(`Fetch failed: ${res.status}`);
   }
+
+  const json = await res.json();
+  return json as Character;
 }
