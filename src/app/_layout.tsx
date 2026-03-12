@@ -1,6 +1,10 @@
 import { SafeAreaView } from "react-native-safe-area-context";
+import { Slot } from "expo-router";
 
 export default function RootLayout() {
-  // <SafeAreaView></SafeAreaView>;
-  //lägg children inuti?
+  return (
+    <SafeAreaView style={{ flex: 1 }}>
+      <Slot />
+    </SafeAreaView>
+  );
 }

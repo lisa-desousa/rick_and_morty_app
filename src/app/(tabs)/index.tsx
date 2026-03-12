@@ -4,16 +4,16 @@ import { useRouter } from "expo-router";
 import { useAllCharacters } from "@/hooks/useAllCharacters";
 
 //prio:
+//favoriter(globalt state, async storage)
 //pagination
-//status bar fix
 //sökfunktion
-//generera random karaktär?
-//favoriter (tabs för flöde + favoriter?)
+//fixa alla småkomponenter: backbtn, loading, error, ikoner för tabs...
 
 //... vi får se om det blir mer
 //mappa ut episoder som karaktärer är med i i detailssection
 //liknande flöden för locations och episodes
 //kunna länka mellan details-sidor
+//generera random karaktär
 
 export default function App() {
   const router = useRouter();

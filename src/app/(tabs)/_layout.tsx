@@ -1,6 +1,5 @@
 import { Tabs } from "expo-router";
 
-//här lägger du viewcontainer
 export default function TabsLayout() {
   return (
     <Tabs>
