@@ -29,7 +29,7 @@ export default function App() {
         characters={characters.data}
         onCardPress={(character) =>
           router.push({
-            pathname: "/details",
+            pathname: "/details/[id]",
             params: { id: character.id },
           })
         }
