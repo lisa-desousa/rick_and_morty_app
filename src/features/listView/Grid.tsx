@@ -9,6 +9,7 @@ type GridProps = {
 
 export default function Grid({ characters, onCardPress }: GridProps) {
   return (
+    //byt till flatlist?
     <ScrollView contentContainerStyle={styles.grid}>
       {characters.map((char) => (
         <Card

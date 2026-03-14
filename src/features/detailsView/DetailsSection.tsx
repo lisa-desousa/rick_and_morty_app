@@ -1,5 +1,6 @@
 import { Text, View, Image, StyleSheet } from "react-native";
 import { Character } from "@/types/CharacterType";
+import FavouritesBadge from "../listView/FavouritesBadge";
 
 type DetailsSectionProps = {
   item: Character;
@@ -16,6 +17,7 @@ export default function DetailsSection({ item }: DetailsSectionProps) {
         <Text style={{ fontSize: 18 }}>Species: {item.species}</Text>
         <Text style={{ fontSize: 18 }}>Last seen: {item.location.name}</Text>
         {item.type && <Text style={{ fontSize: 18 }}>Type: {item.type}</Text>}
+        <FavouritesBadge id={item.id} />
 
         {/* här kan man göra en komponent som loopar över url och hämtar info? */}
         {/* <Text style={{ fontSize: 18 }}>Appears in: {item.episode}</Text> */}

@@ -1,4 +1,5 @@
-import { Text, Pressable } from "react-native";
+import { Pressable } from "react-native";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 type BackButtonProps = {
   onPress: () => void;
@@ -7,7 +8,7 @@ type BackButtonProps = {
 export default function BackButton({ onPress }: BackButtonProps) {
   return (
     <Pressable onPress={onPress}>
-      <Text>Go Back</Text>
+      <Ionicons name="arrow-back-circle" size={40} color="#004100" />
     </Pressable>
   );
 }

@@ -4,10 +4,11 @@ import { useRouter } from "expo-router";
 import { useAllCharacters } from "@/hooks/useAllCharacters";
 
 //prio:
-//favoriter(globalt state, async storage)
-//pagination
+//pagination...
 //sökfunktion
 //fixa alla småkomponenter: backbtn, loading, error, ikoner för tabs...
+//fixa katastrofal styling
+//refaktorisera - använd inte två hooks för loading state??
 
 //... vi får se om det blir mer
 //mappa ut episoder som karaktärer är med i i detailssection
@@ -23,6 +24,7 @@ export default function App() {
   if (characters.status === "error")
     return <Text>{characters.error.message}</Text>;
 
+  //byt grid till flatlist?
   return (
     <View style={styles.container}>
       <Grid

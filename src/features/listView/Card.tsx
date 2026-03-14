@@ -1,5 +1,6 @@
 import { Image, Pressable, StyleSheet, Text } from "react-native";
 import { SimpleCharacter } from "@/types/SimpleCharacterType";
+import FavouritesBadge from "./FavouritesBadge";
 
 type CardProps = {
   character: SimpleCharacter;
@@ -17,6 +18,7 @@ export default function Card({ character, onPress }: CardProps) {
       ]}
       onPress={onPress}
     >
+      <FavouritesBadge id={character.id} />
       <Text style={styles.name}>{character.name}</Text>
       <Image source={{ uri: character.image }} style={styles.image} />
     </Pressable>

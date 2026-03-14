@@ -12,7 +12,7 @@ export default function StackLayout() {
         options={{
           headerShown: true,
           title: "",
-          headerLeft: () => <BackButton onPress={() => router.back()} />,
+          headerLeft: () => <BackButton onPress={() => router.back()} />, //varför hamnar jag på home från favourites??
         }}
       />
     </Stack>

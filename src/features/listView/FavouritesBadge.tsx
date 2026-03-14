@@ -1,9 +1,19 @@
-import { View, Text } from "react-native";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import { Pressable } from "react-native";
+import { useFavourites } from "@/context/FavouritesContext";
 
-export default function FavouritesBadge() {
+type BadgeProps = {
+  id: number;
+};
+
+export default function FavouritesBadge({ id }: BadgeProps) {
+  const { isFavourite, toggleFavourite } = useFavourites();
+
+  const active = isFavourite(id);
+
   return (
-    <View>
-      <Text>Hjärta</Text>
-    </View>
+    <Pressable onPress={() => toggleFavourite(id)}>
+      <Ionicons name="heart" size={32} color={active ? "#ff4f87" : "#a2a2a2"} />
+    </Pressable>
   );
 }
