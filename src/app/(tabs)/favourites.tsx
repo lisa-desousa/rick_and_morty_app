@@ -1,48 +1,38 @@
-import { StyleSheet, View, Text } from "react-native";
 import Grid from "@/features/listView/Grid";
 import { useRouter } from "expo-router";
-import { useAllCharacters } from "@/hooks/useAllCharacters";
 import { useFavourites } from "@/context/FavouritesContext";
+import { useEffect, useState } from "react";
+import { Character } from "@/types/CharacterType";
+import { fetchCharacterById } from "@/api/fetchCharacterById";
 
 export default function Favourites() {
   const router = useRouter();
-  const characters = useAllCharacters();
   const { favourites } = useFavourites();
+  const [favCharacters, setFavCharacters] = useState<Character[]>([]);
 
-  if (characters.status === "loading") return <Text>Loading...</Text>;
-  if (characters.status === "error")
-    return <Text>{characters.error.message}</Text>;
+  //ett anrop istället för promise.all
+  //id:n kan separeras med ,
+  useEffect(() => {
+    const loadFavorites = async () => {
+      const data = await Promise.all(
+        favourites.map((id) => fetchCharacterById(id)),
+      );
 
-  const favCharacters = characters.data.filter((character) =>
-    favourites.includes(character.id),
-  );
+      setFavCharacters(data);
+    };
+
+    loadFavorites();
+  }, [favourites]);
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.header}>Favourite Characters</Text>
-      <Grid
-        characters={favCharacters}
-        onCardPress={(character) =>
-          router.push({
-            pathname: "/details/[id]",
-            params: { id: character.id },
-          })
-        }
-      />
-    </View>
+    <Grid
+      characters={favCharacters}
+      onCardPress={(item) =>
+        router.push({
+          pathname: "/details/[id]",
+          params: { id: item.id },
+        })
+      }
+    />
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#64db49",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  header: {
-    textAlign: "center",
-    fontSize: 32,
-    marginTop: 10,
-  },
-});

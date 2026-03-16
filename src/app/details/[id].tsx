@@ -6,15 +6,15 @@ import { useCharacterById } from "@/hooks/useCharacterById";
 export default function Details() {
   const { id } = useLocalSearchParams();
   const num = Number(id); //verifiera på nåt sett att detta inte är NaN ?
-  const character = useCharacterById(num);
+  const { data, loading, error } = useCharacterById(num);
 
-  if (character.status === "loading") return <Text>Loading...</Text>;
-  if (character.status === "error")
-    return <Text>{character.error.message}</Text>;
+  if (loading) return <Text>Loading...</Text>;
+  if (error) return <Text>{error.message}</Text>;
+  if (!data) return <Text>Ingen data :pPPppP</Text>;
 
   return (
     <View style={styles.container}>
-      <DetailsSection item={character.data} />
+      <DetailsSection item={data} />
     </View>
   );
 }

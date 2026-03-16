@@ -1,13 +1,16 @@
-import { StyleSheet, View, Text } from "react-native";
+import { Text } from "react-native";
 import Grid from "@/features/listView/Grid";
 import { useRouter } from "expo-router";
 import { useAllCharacters } from "@/hooks/useAllCharacters";
+import { ActivityIndicator } from "react-native";
 
 //prio:
-//pagination...
+//flatlist komponent med massa props eller duplicerad kod?
 //sökfunktion
+//navigering funkar ej - går alltid till index inte bakåt
 //fixa alla småkomponenter: backbtn, loading, error, ikoner för tabs...
 //fixa katastrofal styling
+//ej resetta scroll position
 //refaktorisera - använd inte två hooks för loading state??
 
 //... vi får se om det blir mer
@@ -18,33 +21,27 @@ import { useAllCharacters } from "@/hooks/useAllCharacters";
 
 export default function App() {
   const router = useRouter();
-  const characters = useAllCharacters();
+  const { data, loading, hasMore, loadMore, error } = useAllCharacters();
 
-  if (characters.status === "loading") return <Text>Loading...</Text>;
-  if (characters.status === "error")
-    return <Text>{characters.error.message}</Text>;
+  const footer = (
+    <>
+      {loading && <ActivityIndicator />}
+      {error && <Text>{error.message}</Text>}
+      {!hasMore && <Text>That's All Folks!</Text>}
+    </>
+  );
 
-  //byt grid till flatlist?
   return (
-    <View style={styles.container}>
-      <Grid
-        characters={characters.data}
-        onCardPress={(character) =>
-          router.push({
-            pathname: "/details/[id]",
-            params: { id: character.id },
-          })
-        }
-      />
-    </View>
+    <Grid
+      characters={data}
+      onCardPress={(item) =>
+        router.push({
+          pathname: "/details/[id]",
+          params: { id: item.id },
+        })
+      }
+      onEndReached={loadMore}
+      footer={footer}
+    />
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#64db49",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});

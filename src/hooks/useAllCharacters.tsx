@@ -2,20 +2,45 @@ import { fetchAllCharacters } from "@/api/fetchAllCharacters";
 import { useEffect, useState } from "react";
 import { SimpleCharacter } from "@/types/SimpleCharacterType";
 
-//du kan skicka funktoinen som en prop så slipper vi 2 olika filer
-//du kan också göra ett state för varje grej: loading, error och data, så kan du importera de i komponenten och göra conditional rendering iställer för character.status === osv...
 export function useAllCharacters() {
-  const [state, setState] = useState<
-    | { status: "loading" }
-    | { status: "error"; error: Error }
-    | { status: "success"; data: SimpleCharacter[] }
-  >({ status: "loading" });
+  const [data, setData] = useState<SimpleCharacter[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
+
+  const loadMore = () => {
+    if (!loading && hasMore) {
+      setPage((prev) => prev + 1);
+    }
+  };
 
   useEffect(() => {
-    fetchAllCharacters()
-      .then((data) => setState({ status: "success", data }))
-      .catch((error) => setState({ status: "error", error }));
-  }, []);
+    const getCharacters = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const { characters, info } = await fetchAllCharacters(page);
 
-  return state;
+        //kombinera 2 arrayer till 1
+        setData((prev) => [...prev, ...characters]);
+
+        if (info.next === null) {
+          setHasMore(false);
+        }
+      } catch (e) {
+        if (e instanceof Error) {
+          setError(e);
+        } else {
+          setError(new Error("Unknown error"));
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    getCharacters();
+  }, [page]);
+
+  return { data, loading, page, hasMore, loadMore, error };
 }

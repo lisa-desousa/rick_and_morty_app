@@ -1,33 +1,43 @@
-import { ScrollView, StyleSheet } from "react-native";
+import { StyleSheet, FlatList, View } from "react-native";
 import { SimpleCharacter } from "@/types/SimpleCharacterType";
 import Card from "./Card";
 
 type GridProps = {
   characters: SimpleCharacter[];
-  onCardPress?: (char: SimpleCharacter) => void;
+  onCardPress: (character: SimpleCharacter) => void;
+  footer?: React.ReactElement;
+  onEndReached?: () => void;
 };
 
-export default function Grid({ characters, onCardPress }: GridProps) {
+export default function Grid({
+  characters,
+  onCardPress,
+  footer,
+  onEndReached,
+}: GridProps) {
   return (
-    //byt till flatlist?
-    <ScrollView contentContainerStyle={styles.grid}>
-      {characters.map((char) => (
-        <Card
-          key={char.id}
-          character={char}
-          onPress={() => onCardPress?.(char)}
-        />
-      ))}
-    </ScrollView>
+    <View style={styles.container}>
+      <FlatList
+        contentContainerStyle={{ marginVertical: 15 }}
+        data={characters}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={({ item }) => {
+          return <Card character={item} onPress={() => onCardPress(item)} />;
+        }}
+        numColumns={2}
+        ListFooterComponent={footer}
+        onEndReached={onEndReached}
+        onEndReachedThreshold={0.5}
+      />
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  grid: {
-    gap: 12,
-    padding: 16,
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "space-between",
+  container: {
+    flex: 1,
+    backgroundColor: "#64db49",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });

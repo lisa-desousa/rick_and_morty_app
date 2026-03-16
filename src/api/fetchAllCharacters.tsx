@@ -4,8 +4,10 @@ import { SimpleCharacter } from "@/types/SimpleCharacterType";
 //data.results visar endast första 20st
 //lägg page som ${} i slutet av url
 
-export async function fetchAllCharacters() {
-  const res = await fetch(`https://rickandmortyapi.com/api/character`);
+export async function fetchAllCharacters(page: number) {
+  const res = await fetch(
+    `https://rickandmortyapi.com/api/character/?page=${page}`,
+  );
 
   if (!res.ok) {
     throw new Error(`Fetch failed: ${res.status}`);
@@ -13,9 +15,13 @@ export async function fetchAllCharacters() {
 
   const json = await res.json();
 
-  return json.results.map((c: SimpleCharacter) => ({
+  const info = json.info;
+
+  const characters = json.results.map((c: SimpleCharacter) => ({
     id: c.id,
     name: c.name,
     image: c.image,
   }));
+
+  return { characters, info };
 }
