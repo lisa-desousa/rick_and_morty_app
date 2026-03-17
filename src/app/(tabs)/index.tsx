@@ -5,13 +5,12 @@ import { useAllCharacters } from "@/hooks/useAllCharacters";
 import { ActivityIndicator } from "react-native";
 
 //prio:
-//flatlist komponent med massa props eller duplicerad kod?
-//sökfunktion
 //navigering funkar ej - går alltid till index inte bakåt
-//fixa alla småkomponenter: backbtn, loading, error, ikoner för tabs...
+//fixa alla loading state or error handling
 //fixa katastrofal styling
 //ej resetta scroll position
-//refaktorisera - använd inte två hooks för loading state??
+//refaktorisera - använd inte två hooks för loading state?? jättemkt duplicerad kod just nu
+//glöm inte TESTA I EMULATOR
 
 //... vi får se om det blir mer
 //mappa ut episoder som karaktärer är med i i detailssection

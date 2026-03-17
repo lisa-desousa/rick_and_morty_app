@@ -1,6 +1,6 @@
 import { Text, View, Image, StyleSheet } from "react-native";
 import { Character } from "@/types/CharacterType";
-import FavouritesBadge from "../listView/FavouritesBadge";
+import FavouritesBadge from "../../shared_components/FavouritesBadge";
 
 type DetailsSectionProps = {
   item: Character;

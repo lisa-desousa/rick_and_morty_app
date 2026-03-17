@@ -1,6 +1,6 @@
 import { Image, Pressable, StyleSheet, Text } from "react-native";
 import { SimpleCharacter } from "@/types/SimpleCharacterType";
-import FavouritesBadge from "./FavouritesBadge";
+import FavouritesBadge from "../../shared_components/FavouritesBadge";
 
 type CardProps = {
   character: SimpleCharacter;
