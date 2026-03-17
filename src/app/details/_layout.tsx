@@ -2,7 +2,7 @@ import { Stack } from "expo-router";
 import BackButton from "@/features/detailsView/BackButton";
 import { useRouter } from "expo-router";
 
-export default function StackLayout() {
+export default function DetailsLayout() {
   const router = useRouter();
 
   return (
@@ -12,7 +12,7 @@ export default function StackLayout() {
         options={{
           headerShown: true,
           title: "",
-          headerLeft: () => <BackButton onPress={() => router.back()} />, //varför hamnar jag på home från favourites??
+          headerLeft: () => <BackButton onPress={() => router.back()} />,
         }}
       />
     </Stack>

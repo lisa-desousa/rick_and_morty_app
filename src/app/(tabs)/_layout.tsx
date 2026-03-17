@@ -3,13 +3,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 
 export default function TabsLayout() {
   return (
-    <Tabs
-      screenOptions={{
-        tabBarStyle: {
-          height: 70,
-        },
-      }}
-    >
+    <Tabs screenOptions={{ tabBarStyle: { height: 70 } }}>
       <Tabs.Screen
         name="index"
         options={{
@@ -29,7 +23,7 @@ export default function TabsLayout() {
             <Ionicons name="search" size={25} color={color} />
           ),
         }}
-      ></Tabs.Screen>
+      />
       <Tabs.Screen
         name="favourites"
         options={{
@@ -39,7 +33,7 @@ export default function TabsLayout() {
             <Ionicons name="heart" size={25} color={color} />
           ),
         }}
-      ></Tabs.Screen>
+      />
     </Tabs>
   );
 }
