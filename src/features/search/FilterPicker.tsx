@@ -1,6 +1,6 @@
 import { Text, Pressable, View, StyleSheet } from "react-native";
 
-const FILTERS = [
+const filters = [
   { key: "name", label: "Name" },
   { key: "status", label: "Status" },
   { key: "species", label: "Species" },
@@ -18,17 +18,14 @@ type Props = {
 export default function FilterPicker({ selected, onSelect }: Props) {
   return (
     <View style={styles.container}>
-      {FILTERS.map((filter) => {
-        const isActive = selected === filter.key;
+      {filters.map((filter) => {
+        const isActive = selected === filter.key; //vad händer på denna raden?
 
         return (
           <Pressable
             key={filter.key}
             onPress={() => onSelect(filter.key)}
-            style={[
-              styles.button,
-              isActive && styles.buttonActive, // OM aktiv → ge stil
-            ]}
+            style={[styles.button, isActive && styles.buttonActive]}
           >
             <Text style={[styles.label, isActive && styles.labelActive]}>
               {filter.label}
@@ -43,9 +40,7 @@ export default function FilterPicker({ selected, onSelect }: Props) {
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
-    flexWrap: "wrap",
     gap: 10,
-    marginVertical: 12,
   },
   button: {
     backgroundColor: "#ddd",

@@ -5,23 +5,19 @@ import { useAllCharacters } from "@/hooks/useAllCharacters";
 import { ActivityIndicator } from "react-native";
 
 //prio:
-//navigering funkar ej - går alltid till index inte bakåt
-//fixa alla loading state or error handling
-//fixa katastrofal styling
-//ej resetta scroll position
-//refaktorisera - använd inte två hooks för loading state?? jättemkt duplicerad kod just nu
-//glöm inte TESTA I EMULATOR
-
-//... vi får se om det blir mer
-//mappa ut episoder som karaktärer är med i i detailssection
-//liknande flöden för locations och episodes
-//kunna länka mellan details-sidor
-//generera random karaktär
+//grid när det bara finns 1 item
+//grid key extractor grej
+//grid när tomt (favoriter) varför ej funkar??
+//gå igenom appen och leta errors :DDD
+//testa kommentera ut alla icons från app.json
+//kör tsc --noEmit och be till gud
+//göra readme :|
 
 export default function App() {
   const router = useRouter();
   const { data, loading, hasMore, loadMore, error } = useAllCharacters();
 
+  // här behövs inte fetch wrapper eftersom den har en egen footer och den laddar mer karaktärer dynamiskt
   const footer = (
     <>
       {loading && <ActivityIndicator />}

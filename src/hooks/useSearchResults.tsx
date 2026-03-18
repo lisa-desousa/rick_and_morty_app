@@ -14,6 +14,8 @@ export function useSearchResults({ query, filter }: Props) {
 
   useEffect(() => {
     const getSearchResults = async () => {
+      if (!query || !filter) return;
+
       setLoading(true);
       setError(null);
       try {

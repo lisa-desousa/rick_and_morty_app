@@ -7,20 +7,25 @@ type DetailsSectionProps = {
 };
 
 export default function DetailsSection({ item }: DetailsSectionProps) {
+  const details = [
+    { label: "Status", value: item.status },
+    { label: "Gender", value: item.gender },
+    { label: "Species", value: item.species },
+    { label: "Last seen", value: item.location.name },
+    ...(item.type ? [{ label: "Type", value: item.type }] : []), // ?? kollar om type finns (vilket det inte alltid gör) och lägger då till den i details-arrayen
+  ];
+
   return (
     <View>
       <Text style={styles.name}>{item.name}</Text>
       <Image source={{ uri: item.image }} style={styles.image} />
       <View style={styles.detailsContainer}>
-        <Text style={{ fontSize: 18 }}>Status: {item.status}</Text>
-        <Text style={{ fontSize: 18 }}>Gender: {item.gender}</Text>
-        <Text style={{ fontSize: 18 }}>Species: {item.species}</Text>
-        <Text style={{ fontSize: 18 }}>Last seen: {item.location.name}</Text>
-        {item.type && <Text style={{ fontSize: 18 }}>Type: {item.type}</Text>}
+        {details.map(({ label, value }) => (
+          <Text key={label} style={styles.detailText}>
+            {label}: {value}
+          </Text>
+        ))}
         <FavouritesBadge id={item.id} />
-
-        {/* här kan man göra en komponent som loopar över url och hämtar info? */}
-        {/* <Text style={{ fontSize: 18 }}>Appears in: {item.episode}</Text> */}
       </View>
     </View>
   );
@@ -50,5 +55,8 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     alignSelf: "center",
     minWidth: 250,
+  },
+  detailText: {
+    fontSize: 18,
   },
 });

@@ -1,4 +1,3 @@
-import { Character } from "@/types/CharacterType";
 import { SimpleCharacter } from "@/types/SimpleCharacterType";
 
 type Props = {

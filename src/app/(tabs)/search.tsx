@@ -1,43 +1,132 @@
-import { Text, ScrollView } from "react-native";
+// import { Text, ScrollView } from "react-native";
+// import { useSearchResults } from "@/hooks/useSearchResults";
+// import { useState } from "react";
+// import FilterPicker from "@/features/search/FilterPicker";
+// import SearchBtn from "@/features/search/SearchBtn";
+// import SearchInput from "@/features/search/SearchInput";
+// import { SimpleCharacter } from "@/types/SimpleCharacterType";
+// import Grid from "@/features/listView/Grid";
+// import { useRouter } from "expo-router";
+// import { FetchWrapper } from "@/shared_components/FetchWrapper";
+
+// export default function Search() {
+//   const router = useRouter();
+//   const [filter, setFilter] = useState<string>("name");
+//   const [query, setQuery] = useState("");
+//   const [results, setResults] = useState<SimpleCharacter[]>([]);
+//   const { data, loading, error } = useSearchResults({ query, filter });
+
+//   const handleSearch = () => {
+//     setResults(data);
+//   };
+
+//   return (
+//     <ScrollView>
+//       <Text>Pick a search category and type your search below.</Text>
+//       <FilterPicker selected={filter} onSelect={(key) => setFilter(key)} />
+//       <Text>Filter: {filter}</Text>
+//       <SearchInput value={query} onChangeText={(text) => setQuery(text)} />
+
+//       {query && filter && <SearchBtn handleSearch={handleSearch} />}
+//       <FetchWrapper loading={loading} error={error}>
+//         <Grid
+//           characters={results}
+//           onCardPress={(item) =>
+//             router.push({
+//               pathname: "/details/[id]",
+//               params: { id: item.id },
+//             })
+//           }
+//         />
+//       </FetchWrapper>
+//     </ScrollView>
+//   );
+// }
+import { Text, ScrollView, View, StyleSheet } from "react-native";
 import { useSearchResults } from "@/hooks/useSearchResults";
 import { useState } from "react";
 import FilterPicker from "@/features/search/FilterPicker";
 import SearchBtn from "@/features/search/SearchBtn";
 import SearchInput from "@/features/search/SearchInput";
-import { SimpleCharacter } from "@/types/SimpleCharacterType";
 import Grid from "@/features/listView/Grid";
 import { useRouter } from "expo-router";
+import { FetchWrapper } from "@/shared_components/FetchWrapper";
 
 export default function Search() {
   const router = useRouter();
+
   const [filter, setFilter] = useState<string>("name");
   const [query, setQuery] = useState("");
-  const [results, setResults] = useState<SimpleCharacter[]>([]);
-  const { data } = useSearchResults({ query, filter });
+
+  // sökning ska inte triggas förrens man trycker på sök-knappen. eftersom hooken har filter och query som dependency-arrayer så kommer de triggas så fort värdet uppdateras om vi inte matar in de först när användaren klickar
+  const [submittedFilter, setSubmittedFilter] = useState<string>("name");
+  const [submittedQuery, setSubmittedQuery] = useState("");
+
+  const { data, loading, error } = useSearchResults({
+    query: submittedQuery,
+    filter: submittedFilter,
+  });
 
   const handleSearch = () => {
-    setResults(data);
+    setSubmittedFilter(filter);
+    setSubmittedQuery(query);
+
+    setQuery(""); // Rensa input men låt filter ligga kvar
   };
 
   return (
-    <ScrollView>
-      <Text>Pick a search category and type your search below.</Text>
-      <FilterPicker selected={filter} onSelect={(key) => setFilter(key)} />
-      <Text>Filter: {filter}</Text>
-      <SearchInput value={query} onChangeText={(text) => setQuery(text)} />
+    <>
+      {/* sök-rutan */}
+      <View style={styles.searchContainer}>
+        <Text style={styles.description}>
+          Pick a search category and type your search below.
+        </Text>
 
-      {query && filter && <SearchBtn handleSearch={handleSearch} />}
-      {results && (
-        <Grid
-          characters={results}
-          onCardPress={(item) =>
-            router.push({
-              pathname: "/details/[id]",
-              params: { id: item.id },
-            })
-          }
-        />
-      )}
-    </ScrollView>
+        <View>
+          <FilterPicker selected={filter} onSelect={(key) => setFilter(key)} />
+        </View>
+
+        <View>
+          <SearchInput value={query} onChangeText={(text) => setQuery(text)} />
+        </View>
+
+        <View>
+          <SearchBtn
+            handleSearch={handleSearch}
+            disabled={query.length === 0}
+          />
+        </View>
+      </View>
+
+      {/* resultat */}
+      <ScrollView style={{ backgroundColor: "#64db49" }}>
+        {submittedQuery !== "" && (
+          <FetchWrapper loading={loading} error={error}>
+            <Grid
+              characters={data}
+              onCardPress={(item) =>
+                router.push({
+                  pathname: "/details/[id]",
+                  params: { id: item.id },
+                })
+              }
+            />
+          </FetchWrapper>
+        )}
+      </ScrollView>
+    </>
   );
 }
+
+const styles = StyleSheet.create({
+  description: {
+    fontSize: 16,
+    color: "#333",
+  },
+  searchContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 18,
+    marginVertical: 20,
+  },
+});

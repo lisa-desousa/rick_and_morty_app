@@ -1,9 +1,5 @@
 import { SimpleCharacter } from "@/types/SimpleCharacterType";
 
-//data.next är url till nästa sida!!!!!!
-//data.results visar endast första 20st
-//lägg page som ${} i slutet av url
-
 export async function fetchAllCharacters(page: number) {
   const res = await fetch(
     `https://rickandmortyapi.com/api/character/?page=${page}`,

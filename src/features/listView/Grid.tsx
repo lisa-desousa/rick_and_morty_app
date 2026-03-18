@@ -20,11 +20,15 @@ export default function Grid({
       <FlatList
         contentContainerStyle={{ marginVertical: 15 }}
         data={characters}
-        keyExtractor={(item) => item.id.toString()}
+        keyExtractor={(item, index) =>
+          item.id ? item.id.toString() : index.toString()
+        }
+        // varför error här?
         renderItem={({ item }) => {
           return <Card character={item} onPress={() => onCardPress(item)} />;
         }}
-        numColumns={2}
+        numColumns={characters.length > 1 ? 2 : 1}
+        // fix!!
         ListFooterComponent={footer}
         onEndReached={onEndReached}
         onEndReachedThreshold={0.5}

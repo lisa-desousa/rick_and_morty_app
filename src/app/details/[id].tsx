@@ -2,19 +2,24 @@ import { StyleSheet, Text, View } from "react-native";
 import { useLocalSearchParams } from "expo-router";
 import DetailsSection from "@/features/detailsView/DetailsSection";
 import { useCharacterById } from "@/hooks/useCharacterById";
+import { FetchWrapper } from "@/shared_components/FetchWrapper";
 
 export default function Details() {
   const { id } = useLocalSearchParams();
-  const num = Number(id); //verifiera på nåt sett att detta inte är NaN ?
+  const num = Number(id);
   const { data, loading, error } = useCharacterById(num);
 
-  if (loading) return <Text>Loading...</Text>;
-  if (error) return <Text>{error.message}</Text>;
-  if (!data) return <Text>Ingen data :pPPppP</Text>;
+  if (Number.isNaN(num)) return <Text>Id is not a number! How silly!</Text>;
 
   return (
     <View style={styles.container}>
-      <DetailsSection item={data} />
+      <FetchWrapper loading={loading} error={error}>
+        {data[0] ? (
+          <DetailsSection item={data[0]} />
+        ) : (
+          <Text>Character not found.</Text>
+        )}
+      </FetchWrapper>
     </View>
   );
 }

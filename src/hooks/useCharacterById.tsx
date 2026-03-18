@@ -2,22 +2,15 @@ import { fetchCharacterById } from "@/api/fetchCharacterById";
 import { useEffect, useState } from "react";
 import { Character } from "@/types/CharacterType";
 
-export function useCharacterById(id: number) {
-  // const [state, setState] = useState<
-  //   | { status: "loading" }
-  //   | { status: "error"; error: Error }
-  //   | { status: "success"; data: Character }
-  // >({ status: "loading" });
-
-  const [data, setData] = useState<Character | null>(null);
+export function useCharacterById(id: number | number[]) {
+  const [data, setData] = useState<Character[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
-    // fetchCharacterById(id)
-    //   .then((data) => setState({ status: "success", data }))
-    //   .catch((error) => setState({ status: "error", error }));
-    const getCharacterById = async () => {
+    const getCharacters = async () => {
+      if (!id) return;
+
       setLoading(true);
       setError(null);
       try {
@@ -34,7 +27,7 @@ export function useCharacterById(id: number) {
       }
     };
 
-    getCharacterById();
+    getCharacters();
   }, [id]);
 
   return { loading, error, data };

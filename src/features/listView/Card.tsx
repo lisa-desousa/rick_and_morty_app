@@ -4,7 +4,7 @@ import FavouritesBadge from "../../shared_components/FavouritesBadge";
 
 type CardProps = {
   character: SimpleCharacter;
-  onPress?: () => void; //kortet är klickbart i sig, men vad som sker vid klick bestäms utifrån var kortet används. Grid skickar den specifika logiken (i detta fall navigation) som props till index
+  onPress?: () => void; //ta bort optional?
 };
 
 export default function Card({ character, onPress }: CardProps) {
