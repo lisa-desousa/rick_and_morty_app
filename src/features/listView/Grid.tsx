@@ -15,20 +15,21 @@ export default function Grid({
   footer,
   onEndReached,
 }: GridProps) {
+  if (characters.length === 0) return null;
+
+  //error säger: encountered two children with the same key
+  // den verkar köra fetch alldeles för mkt när man scrollar
+
   return (
     <View style={styles.container}>
       <FlatList
         contentContainerStyle={{ marginVertical: 15 }}
         data={characters}
-        keyExtractor={(item, index) =>
-          item.id ? item.id.toString() : index.toString()
-        }
-        // varför error här?
+        keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => {
           return <Card character={item} onPress={() => onCardPress(item)} />;
         }}
-        numColumns={characters.length > 1 ? 2 : 1}
-        // fix!!
+        numColumns={2}
         ListFooterComponent={footer}
         onEndReached={onEndReached}
         onEndReachedThreshold={0.5}

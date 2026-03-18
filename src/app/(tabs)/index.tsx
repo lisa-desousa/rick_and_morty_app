@@ -5,10 +5,9 @@ import { useAllCharacters } from "@/hooks/useAllCharacters";
 import { ActivityIndicator } from "react-native";
 
 //prio:
-//grid när det bara finns 1 item
-//grid key extractor grej
+//konstig -margin så spinner syns ej
 //grid när tomt (favoriter) varför ej funkar??
-//gå igenom appen och leta errors :DDD
+//children with same key
 //testa kommentera ut alla icons från app.json
 //kör tsc --noEmit och be till gud
 //göra readme :|

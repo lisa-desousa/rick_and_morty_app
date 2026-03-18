@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import { SimpleCharacter } from "@/types/SimpleCharacterType";
 import { fetchSearchResults } from "@/api/fetchSearchResults";
 
-type Props = {
+type HookProps = {
   query: string;
   filter: string;
 };
 
-export function useSearchResults({ query, filter }: Props) {
+export function useSearchResults({ query, filter }: HookProps) {
   const [data, setData] = useState<SimpleCharacter[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);

@@ -2,13 +2,13 @@ import React from "react";
 import { ActivityIndicator } from "react-native";
 import { Text } from "react-native";
 
-type Props = {
+type WrapperProps = {
   loading: boolean;
   error: Error | null;
   children: React.ReactNode;
 };
 
-export function FetchWrapper({ loading, error, children }: Props) {
+export function FetchWrapper({ loading, error, children }: WrapperProps) {
   if (loading) return <ActivityIndicator />;
   if (error)
     return (

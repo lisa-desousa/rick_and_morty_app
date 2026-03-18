@@ -1,12 +1,12 @@
 import { Pressable, Text } from "react-native";
 import { StyleSheet } from "react-native";
 
-type Props = {
+type BtnProps = {
   handleSearch: () => void;
   disabled: boolean;
 };
 
-export default function SearchBtn({ handleSearch, disabled }: Props) {
+export default function SearchBtn({ handleSearch, disabled }: BtnProps) {
   return (
     <Pressable
       onPress={handleSearch}

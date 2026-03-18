@@ -8,18 +8,16 @@ const filters = [
   { key: "gender", label: "Gender" },
 ];
 
-//kolla igenom denna!
-
-type Props = {
-  selected: string; // vilket filter som är aktivt
-  onSelect: (key: string) => void; // skickas till parent
+type FilterProps = {
+  selected: string;
+  onSelect: (key: string) => void;
 };
 
-export default function FilterPicker({ selected, onSelect }: Props) {
+export default function FilterPicker({ selected, onSelect }: FilterProps) {
   return (
     <View style={styles.container}>
       {filters.map((filter) => {
-        const isActive = selected === filter.key; //vad händer på denna raden?
+        const isActive = selected === filter.key; //"är detta det filter som är valt i parent?"
 
         return (
           <Pressable

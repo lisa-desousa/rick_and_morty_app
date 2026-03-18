@@ -4,7 +4,7 @@ import FavouritesBadge from "../../shared_components/FavouritesBadge";
 
 type CardProps = {
   character: SimpleCharacter;
-  onPress?: () => void; //ta bort optional?
+  onPress: () => void; //ta bort optional?
 };
 
 export default function Card({ character, onPress }: CardProps) {
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   card: {
     padding: 10,
     borderRadius: 20,
-    width: "45%",
+    width: 170,
     alignItems: "center",
     justifyContent: "center",
     margin: 8,

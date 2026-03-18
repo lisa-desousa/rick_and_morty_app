@@ -3,7 +3,7 @@ import { Character } from "@/types/CharacterType";
 export async function fetchCharacterById(
   id: number | number[],
 ): Promise<Character[]> {
-  // Om det är en array → gör om till "1,2,3"
+  // Om det är en array -> gör om till "1,2,3"
   const idParam = Array.isArray(id) ? id.join(",") : id;
 
   const res = await fetch(
@@ -16,6 +16,6 @@ export async function fetchCharacterById(
 
   const json = await res.json();
 
-  // API:et returnerar objekt för "1" men array för "1,2"
+  // API returnerar objekt för "1" men array för "1,2"
   return Array.isArray(json) ? json : [json];
 }

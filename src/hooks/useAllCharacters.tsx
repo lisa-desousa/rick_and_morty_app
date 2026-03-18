@@ -10,14 +10,15 @@ export function useAllCharacters() {
   const [error, setError] = useState<Error | null>(null);
 
   const loadMore = () => {
-    if (!loading && hasMore) {
-      setPage((prev) => prev + 1);
-    }
+    if (loading || !hasMore) return;
+
+    setLoading(true);
+
+    setPage((prev) => prev + 1);
   };
 
   useEffect(() => {
     const getCharacters = async () => {
-      setLoading(true);
       setError(null);
       try {
         const { characters, info } = await fetchAllCharacters(page);

@@ -1,12 +1,12 @@
 import { TextInput } from "react-native";
 import { StyleSheet } from "react-native";
 
-type Props = {
+type InputProps = {
   value: string;
   onChangeText: (text: string) => void;
 };
 
-export default function SearchInput({ value, onChangeText }: Props) {
+export default function SearchInput({ value, onChangeText }: InputProps) {
   return (
     <TextInput
       style={styles.input}
