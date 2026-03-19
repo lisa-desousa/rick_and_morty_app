@@ -4,7 +4,7 @@ import FavouritesBadge from "../../shared_components/FavouritesBadge";
 
 type CardProps = {
   character: SimpleCharacter;
-  onPress: () => void; //ta bort optional?
+  onPress: () => void;
 };
 
 export default function Card({ character, onPress }: CardProps) {

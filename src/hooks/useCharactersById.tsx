@@ -6,25 +6,29 @@ import { Character } from "@/types/CharacterType";
 //En för att hämta 1 karaktär, en för att hämta flera
 //Detta för att undvika ful logik och "är det rätt datatyp?" i komponenterna
 //(de använder samma fetch)
-export function useCharacterById(id: number) {
-  const [data, setData] = useState<Character | null>(null);
+export function useCharactersById(ids: number[]) {
+  const [data, setData] = useState<Character[] | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
-    const getCharacter = async () => {
-      if (!id) return;
+    const getCharacters = async () => {
+      if (!ids || ids.length === 0) {
+        //om man kör !id -> return så missar man att rensa sista karaktären när det bara finns en kvar
+        setData([]); //detta nollställer vid det tillfället
+        return;
+      }
 
       setLoading(true);
       setError(null);
 
       try {
-        const result = await fetchCharacterById(id);
+        const result = await fetchCharacterById(ids);
 
-        // OM vi får en array ändå
-        const character = Array.isArray(result) ? (result[0] ?? null) : result;
+        // OM det inte är en array:
+        const characters = Array.isArray(result) ? result : [result];
 
-        setData(character);
+        setData(characters);
       } catch (e) {
         setError(e instanceof Error ? e : new Error("Unknown error"));
       } finally {
@@ -32,8 +36,8 @@ export function useCharacterById(id: number) {
       }
     };
 
-    getCharacter();
-  }, [id]);
+    getCharacters();
+  }, [ids]);
 
   return { loading, error, data };
 }

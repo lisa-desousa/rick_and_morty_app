@@ -1,4 +1,11 @@
 import { SimpleCharacter } from "@/types/SimpleCharacterType";
+import { Character } from "@/types/CharacterType";
+import { Info } from "@/types/InfoType";
+
+type ApiResponse = {
+  info: Info;
+  results: Character[];
+};
 
 export async function fetchAllCharacters(page: number) {
   const res = await fetch(
@@ -9,11 +16,11 @@ export async function fetchAllCharacters(page: number) {
     throw new Error(`Fetch failed: ${res.status}`);
   }
 
-  const json = await res.json();
+  const json: ApiResponse = await res.json();
 
-  const info = json.info;
+  const info: Info = json.info;
 
-  const characters = json.results.map((c: SimpleCharacter) => ({
+  const characters: SimpleCharacter[] = json.results.map((c) => ({
     id: c.id,
     name: c.name,
     image: c.image,

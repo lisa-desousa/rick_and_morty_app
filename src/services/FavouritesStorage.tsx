@@ -5,7 +5,7 @@ export const readFavs = async (): Promise<number[]> => {
     const storedFavs = await AsyncStorage.getItem("favourites");
 
     if (storedFavs !== null) {
-      //json parse -  (det är en string i storage)
+      //json parse (det är en string i storage)
       const jsonFavs = JSON.parse(storedFavs);
       return jsonFavs;
     }

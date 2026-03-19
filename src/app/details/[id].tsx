@@ -11,12 +11,11 @@ export default function Details() {
 
   if (Number.isNaN(num)) return <Text>Id is not a number! How silly!</Text>;
 
-  // hook kan ta flera idn men det behövs inte här, därav data[0]
   return (
     <View style={styles.container}>
       <FetchWrapper loading={loading} error={error}>
-        {data[0] ? (
-          <DetailsSection item={data[0]} />
+        {data ? (
+          <DetailsSection item={data} />
         ) : (
           <Text>Character not found.</Text>
         )}

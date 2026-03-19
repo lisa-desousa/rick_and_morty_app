@@ -23,8 +23,16 @@ export function useAllCharacters() {
       try {
         const { characters, info } = await fetchAllCharacters(page);
 
-        //kombinera 2 arrayer till 1
-        setData((prev) => [...prev, ...characters]);
+        //"The filter removes any duplicate entries by keeping only the first occurrence of each character ID, maintaining the order of the original array" - coPilot
+        //Tar bort problemet "encountered children with same key" som kom när man scrollar för fort och det triggar flera fetches
+        setData((prev) => {
+          const combined = [...prev, ...characters];
+          const unique = combined.filter(
+            (char, index, self) =>
+              self.findIndex((c) => c.id === char.id) === index,
+          );
+          return unique;
+        });
 
         if (info.next === null) {
           setHasMore(false);

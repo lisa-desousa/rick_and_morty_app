@@ -17,9 +17,6 @@ export default function Grid({
 }: GridProps) {
   if (characters.length === 0) return null;
 
-  //error säger: encountered two children with the same key
-  // den verkar köra fetch alldeles för mkt när man scrollar
-
   return (
     <View style={styles.container}>
       <FlatList

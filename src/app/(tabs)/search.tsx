@@ -55,19 +55,17 @@ export default function Search() {
       </View>
 
       {/* resultat */}
-      {submittedQuery !== "" && (
-        <FetchWrapper loading={loading} error={error}>
-          <Grid
-            characters={data}
-            onCardPress={(item) =>
-              router.push({
-                pathname: "/details/[id]",
-                params: { id: item.id },
-              })
-            }
-          />
-        </FetchWrapper>
-      )}
+      <FetchWrapper loading={loading} error={error}>
+        <Grid
+          characters={data!}
+          onCardPress={(item) =>
+            router.push({
+              pathname: "/details/[id]",
+              params: { id: item.id },
+            })
+          }
+        />
+      </FetchWrapper>
     </>
   );
 }

@@ -4,14 +4,6 @@ import { useRouter } from "expo-router";
 import { useAllCharacters } from "@/hooks/useAllCharacters";
 import { ActivityIndicator } from "react-native";
 
-//prio:
-//konstig -margin så spinner syns ej
-//grid när tomt (favoriter) varför ej funkar??
-//children with same key
-//testa kommentera ut alla icons från app.json
-//kör tsc --noEmit och be till gud
-//göra readme :|
-
 export default function App() {
   const router = useRouter();
   const { data, loading, hasMore, loadMore, error } = useAllCharacters();
